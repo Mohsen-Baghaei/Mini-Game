@@ -1,55 +1,38 @@
 import { ReactElement } from "react";
-import circle from "../assets/img/tictactoe/circle.png";
-import cross from "../assets/img/tictactoe/cross.png";
+
+import Strike from "./Strike";
+import Tile from "./Tile";
 
 type PropsType = {
   tiles: string[];
   handleTileClick: (index: number) => void;
   playerTurn: string;
+  strikeClass: string;
+  endGame: boolean;
 };
 
 const Board = ({
   tiles,
   handleTileClick,
   playerTurn,
+  strikeClass,
+  endGame,
 }: PropsType): ReactElement => {
   return (
-    <section className="grid grid-cols-3 grid-rows-3 gap-1">
+    <section className="grid grid-cols-3 grid-rows-3 gap-1 relative">
       {tiles.map((tile, i) => {
         return (
-          <article
-            className="cursor-pointer"
+          <Tile
             key={i}
-            onClick={() => handleTileClick(i)}
-          >
-            <div
-              className={`text-2xl flex justify-center items-center size-24 md:size-40 bg-slate-50 rounded-lg text-black `}
-            >
-              {tile === "X" ? (
-                <img src={cross} title={cross} />
-              ) : tile === "O" ? (
-                <img src={circle} title={circle} />
-              ) : (
-                <>
-                  {playerTurn === "X" ? (
-                    <img
-                      src={cross}
-                      title={cross}
-                      className="opacity-0 hover:opacity-50"
-                    />
-                  ) : (
-                    <img
-                      src={circle}
-                      title={circle}
-                      className="opacity-0 hover:opacity-50"
-                    />
-                  )}
-                </>
-              )}
-            </div>
-          </article>
+            handleTileClick={handleTileClick}
+            index={i}
+            tile={tile}
+            playerTurn={playerTurn}
+            endGame={endGame}
+          />
         );
       })}
+      <Strike strikeClass={strikeClass} />
     </section>
   );
 };
