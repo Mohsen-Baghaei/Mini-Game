@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import cauldron from "../assets/img/cauldron.png";
+import cauldron from "../assets/img/magicmatch/cauldron.png";
 import { CardType } from "./MagicMatch";
 
 type PropType = {

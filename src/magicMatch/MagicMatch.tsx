@@ -1,11 +1,11 @@
 import { ReactElement, useEffect, useState } from "react";
 
-import helmet from "../assets/img/helmet.png";
-import halloween from "../assets/img/halloween.png";
-import ring from "../assets/img/ring.png";
-import parchment from "../assets/img/parchment.png";
-import shield from "../assets/img/shield.png";
-import sword from "../assets/img/sword.png";
+import helmet from "../assets/img/magicmatch/helmet.png";
+import halloween from "../assets/img/magicmatch/halloween.png";
+import ring from "../assets/img/magicmatch/ring.png";
+import parchment from "../assets/img/magicmatch/parchment.png";
+import shield from "../assets/img/magicmatch/shield.png";
+import sword from "../assets/img/magicmatch/sword.png";
 import SingleCard from "./SingleCard";
 
 export type CardType = {
@@ -93,11 +93,10 @@ const MagicMatch = (): ReactElement => {
 
   return (
     <>
-      {" "}
-      <h1 className="text-3xl mb-5">Magic Match</h1>
+      <h1 className="text-6xl mb-5">Magic Match</h1>
       <button
         onClick={shuffleCards}
-        className="bg-none border-2 border-solid border-slate-50 py-1 px-3 rounded-md text-slate-50 font-bold cursor-pointer text-lg mt-2 hover:bg-rose-600 "
+        className="bg-none border-2 border-solid border-slate-50 py-1 px-3 rounded-md text-slate-50 font-bold cursor-pointer text-2xl mt-2 hover:bg-teal-600 "
       >
         New Game
       </button>
