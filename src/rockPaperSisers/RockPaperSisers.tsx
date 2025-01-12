@@ -1,6 +1,7 @@
 import { ReactElement, useEffect, useState } from "react";
 import { FaRegHandRock, FaRegHandScissors } from "react-icons/fa";
 import { LiaHandPaper } from "react-icons/lia";
+import { TbXboxXFilled } from "react-icons/tb";
 
 const RockPaperSisers = (): ReactElement => {
   const computerOptions: string[] = ["rock", "paper", "scissors"];
@@ -12,9 +13,10 @@ const RockPaperSisers = (): ReactElement => {
     icon: <FaRegHandRock />,
     className: "",
   });
-  const [winning, setWinng] = useState<string>("");
+  const [wining, setWining] = useState<string>("");
   const [score, setScore] = useState<number>(0);
   const [round, setRound] = useState<number>(0);
+  const [showHover, setShowHover] = useState<boolean>(false);
 
   const startGame = (userSelect: string) => {
     const computerSelect: string =
@@ -26,10 +28,10 @@ const RockPaperSisers = (): ReactElement => {
           className: "bg-teal-500",
         });
         computerSelect === "rock"
-          ? setWinng("Draw")
+          ? setWining("Draw")
           : computerSelect === "paper"
-          ? setWinng("Computer Win")
-          : setWinng("Player Win");
+          ? setWining("Computer Win")
+          : setWining("Player Win");
         break;
       case "paper":
         setSelectUser({
@@ -37,10 +39,10 @@ const RockPaperSisers = (): ReactElement => {
           className: "bg-sky-400",
         });
         computerSelect === "rock"
-          ? setWinng("Player Win")
+          ? setWining("Player Win")
           : computerSelect === "paper"
-          ? setWinng("Draw")
-          : setWinng("Computer Win");
+          ? setWining("Draw")
+          : setWining("Computer Win");
         break;
       case "scissors":
         setSelectUser({
@@ -50,10 +52,10 @@ const RockPaperSisers = (): ReactElement => {
           className: "bg-rose-400",
         });
         computerSelect === "rock"
-          ? setWinng("Computer Win")
+          ? setWining("Computer Win")
           : computerSelect === "paper"
-          ? setWinng("Player Win")
-          : setWinng("Draw");
+          ? setWining("Player Win")
+          : setWining("Draw");
         break;
 
       default:
@@ -76,22 +78,29 @@ const RockPaperSisers = (): ReactElement => {
           className: "bg-rose-400",
         });
     setRound((prev) => prev + 1);
+    setTimeout(() => {
+      setShowHover(true);
+    }, 1200);
   };
 
   useEffect(() => {
-    winning === "Player Win" ? setScore((prev) => prev + 1) : null;
-  }, [winning]);
+    wining === "Player Win" ? setScore((prev) => prev + 1) : null;
+  }, [wining]);
 
   const resetGame = () => {
-    setWinng("");
+    setWining("");
     setRound(0);
     setScore(0);
+    setShowHover(false);
     setSelectComputer({ icon: <FaRegHandRock />, className: "" });
     setSelectUser({ icon: <FaRegHandRock />, className: "" });
   };
 
   const closeHover = () => {
-    setWinng("");
+    setShowHover(false);
+    setWining("");
+    setSelectComputer({ icon: <FaRegHandRock />, className: "" });
+    setSelectUser({ icon: <FaRegHandRock />, className: "" });
   };
 
   return (
@@ -127,24 +136,24 @@ const RockPaperSisers = (): ReactElement => {
               className={`size-32 md:size-80 rounded-full flex justify-center items-center ${
                 selectUser?.className
               } transition-all duration-1000 opacity-0 scale-0 ${
-                winning ? "rotate-[720deg] opacity-100 scale-100" : ""
+                wining ? "rotate-[720deg] opacity-100 scale-100" : ""
               }`}
             >
               {selectUser.icon}
             </div>
-            <p className={winning ? "block" : "hidden"}>user</p>
+            <p className={wining ? "block" : "hidden"}>user</p>
           </div>
           <div className="flex flex-col">
             <div
               className={`size-32 md:size-80 rounded-full flex justify-center items-center ${
                 selectComputer?.className
               } transition-all duration-1000 opacity-0 scale-0 ${
-                winning ? "rotate-[720deg] opacity-100 scale-100" : ""
+                wining ? "rotate-[720deg] opacity-100 scale-100" : ""
               }`}
             >
               {selectComputer.icon}
             </div>
-            <p className={winning ? "block" : "hidden"}>Computer</p>
+            <p className={wining ? "block" : "hidden"}>Computer</p>
           </div>
         </div>
         <div className="flex justify-between items-center gap-3 w-full md:w-4/5 mx-auto p-5">
@@ -167,7 +176,22 @@ const RockPaperSisers = (): ReactElement => {
             <FaRegHandScissors className="size-12 text-stone-700 rotate-90" />
           </button>
         </div>
-        <div className="w-full h-full absolute top-0 left-0 right-0 bottom-0 bg-slate-700 rounded-2xl border-2 border-solid border-slate-400 opacity-50"></div>
+        <div
+          className={`${
+            showHover ? "flex" : "hidden"
+          } w-full h-full absolute top-0 left-0 right-0 bottom-0 bg-slate-700 rounded-2xl border-2 border-solid border-slate-400 opacity-80  flex-col`}
+        >
+          <button
+            type="button"
+            className="flex justify-end p-5 opacity-100"
+            onClick={closeHover}
+          >
+            <TbXboxXFilled className="size-12" />
+          </button>
+          <div className="flex h-full justify-center items-center opacity-100 text-5xl md:text-8xl">
+            <p>{wining}</p>
+          </div>
+        </div>
       </article>
     </section>
   );
