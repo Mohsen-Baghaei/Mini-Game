@@ -2,7 +2,7 @@ import { ReactElement } from "react";
 
 const Loading = (): ReactElement => {
   return (
-    <div className="loader loading-min-height rounded-full p-0 m-0 flex flex-row justify-center items-center overflow-hidden bg-slate-50">
+    <div className="loader loading-min-height rounded-full p-0 m-0 flex flex-row justify-center items-center overflow-hidden bg-slate-800">
       <span className="l">
         <svg
           xmlns="http://www.w3.org/2000/svg"

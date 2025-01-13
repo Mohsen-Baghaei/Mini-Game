@@ -71,10 +71,11 @@ const TicTacToe = (): ReactElement => {
 
   useEffect(() => {
     if (count > 4) {
+      if (count === 9 && gameState === "") {
+        setGameState("Draw");
+        gameOverSound.play();
+      }
       checkWinner(tiles, setStrikeClass, setGameState, setEndGame);
-    } else if (count === 9 && gameState === "") {
-      setGameState("Draw");
-      gameOverSound.play();
     }
   }, [tiles]);
 
